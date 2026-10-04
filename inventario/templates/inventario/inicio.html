@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>PetCare Store</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f9; color: #333; margin: 0; padding: 20px; }
+        header { background-color: #2c3e50; color: white; padding: 20px; text-align: center; border-radius: 8px; }
+        .nav-categorias { margin: 30px 0; display: flex; gap: 15px; justify-content: center; }
+        .btn-categoria { background-color: #3498db; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; transition: 0.3s; }
+        .btn-categoria:hover { background-color: #2980b9; transform: scale(1.05); }
+        .grid { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 20px; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 250px; text-align: center; border-top: 4px solid #f1c40f; }
+        .precio { font-size: 1.4em; color: #27ae60; font-weight: bold; margin: 10px 0; }
+        .badge { background-color: #f1c40f; color: #333; padding: 5px 10px; border-radius: 15px; font-size: 0.8em; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🐾 PetCare Store</h1>
+        <p>Tu tienda de mascotas favorita</p>
+    </header>
+
+    <!-- Menú dinámico de categorías -->
+    <div class="nav-categorias">
+        {% for cat in categorias %}
+            <a href="{% url 'categoria' cat.id %}" class="btn-categoria">{{ cat.nombre }}</a>
+        {% endfor %}
+    </div>
+
+    <h2 style="text-align: center;">Nuestros Productos Destacados</h2>
+    
+    <div class="grid">
+        {% for producto in destacados %}
+            <div class="card">
+                <span class="badge">⭐ Destacado</span>
+                <h3>{{ producto.nombre }}</h3>
+                <p style="color: #7f8c8d;">{{ producto.marca }}</p>
+                <p class="precio">${{ producto.precio }}</p>
+            </div>
+        {% empty %}
+            <p>No hay productos destacados por ahora.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

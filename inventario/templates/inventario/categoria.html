@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ categoria.nombre }} - PetCare</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f9; color: #333; margin: 0; padding: 20px; }
+        header { background-color: #e67e22; color: white; padding: 20px; text-align: center; border-radius: 8px; margin-bottom: 20px; }
+        .btn-volver { background-color: #7f8c8d; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin-bottom: 20px; font-weight: bold; }
+        .btn-volver:hover { background-color: #95a5a6; }
+        .grid { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 250px; text-align: center; border-top: 4px solid #e67e22; }
+        .precio { font-size: 1.4em; color: #27ae60; font-weight: bold; }
+        .sin-stock { color: #e74c3c; font-weight: bold; background: #fadbd8; padding: 5px; border-radius: 5px; display: inline-block; margin-top: 10px; }
+        .stock-ok { color: #2980b9; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <a href="{% url 'inicio' %}" class="btn-volver">← Volver al inicio</a>
+
+    <header>
+        <h1>{{ categoria.nombre }}</h1>
+        <p>{{ categoria.descripcion }}</p>
+    </header>
+
+    <div class="grid">
+        {% for producto in productos %}
+            <div class="card">
+                <h3>{{ producto.nombre }}</h3>
+                <p style="color: #7f8c8d;">{{ producto.marca }}</p>
+                <p class="precio">${{ producto.precio }}</p>
+                
+                {% if producto.stock > 0 %}
+                    <p class="stock-ok">Stock disponible: {{ producto.stock }}</p>
+                {% else %}
+                    <p class="sin-stock">¡Agotado temporalmente!</p>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>Aún no hemos agregado productos a esta categoría.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
